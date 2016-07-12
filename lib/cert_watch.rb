@@ -9,8 +9,7 @@ module CertWatch
     yield config
 
     @client = CertbotClient.new(executable: config.certbot_executable,
-                                port: config.certbot_port,
-                                output_directory: config.certbot_output_directory)
+                                port: config.certbot_port)
 
     @installer = PemDirectoryInstaller.new(pem_directory: config.pem_directory,
                                            input_directory: config.certbot_output_directory,
