@@ -10,7 +10,7 @@ end
 Resque.logger_config = {
   folder: log_dir,
   class_name: Logger,
-  class_args: [ 'daily', 1.kilobyte ],
+  class_args: ['daily', 1.kilobyte],
   level:      Logger::INFO,
   formatter:  Logger::Formatter.new
 }

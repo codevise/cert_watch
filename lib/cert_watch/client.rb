@@ -1,6 +1,6 @@
 module CertWatch
   class Client
-    def renew(domain)
+    def renew(_domain)
       fail(NotImplementedError)
     end
   end

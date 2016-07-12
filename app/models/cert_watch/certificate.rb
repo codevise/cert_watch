@@ -18,14 +18,14 @@ module CertWatch
 
       job RenewCertificateJob do
         on_enter 'renewing'
-        result :ok => 'installing'
-        result :error => 'renewing_failed'
+        result ok: 'installing'
+        result error: 'renewing_failed'
       end
 
       job InstallCertificateJob do
         on_enter 'installing'
-        result :ok => 'installed'
-        result :error => 'installing_failed'
+        result ok: 'installed'
+        result error: 'installing_failed'
       end
 
       event :abandon do

@@ -10,8 +10,8 @@ module CertWatch
 
     it 'concatenates full chain and private key files' do
       installer = PemDirectoryInstaller.new(input_directory: 'live',
-                                              pem_directory: 'ssl',
-                                              reload_command: 'touch reload.txt')
+                                            pem_directory: 'ssl',
+                                            reload_command: 'touch reload.txt')
       installer.install('some.example.com')
 
       expect(File.read('ssl/some.example.com.pem')).to eq("FULL CHAIN\nPRIVATE KEY\n")

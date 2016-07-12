@@ -5,7 +5,7 @@ require 'support/helpers/inline_resque'
 
 module CertWatch
   RSpec.describe Certificate, inline_resque: true do
-    describe '#renew'do
+    describe '#renew' do
       it 'makes client renew certificate for domain' do
         certificate = create(:certificate, domain: 'my.example.com')
 

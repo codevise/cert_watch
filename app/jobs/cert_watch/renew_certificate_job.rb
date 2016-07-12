@@ -4,7 +4,7 @@ module CertWatch
 
     @queue = :cert_watch
 
-    def self.perform_with_result(certificate, options = {})
+    def self.perform_with_result(certificate, _options = {})
       CertWatch.client.renew(certificate.domain)
       certificate.last_renewed_at = Time.now
       :ok
