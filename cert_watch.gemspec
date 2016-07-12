@@ -22,4 +22,16 @@ Gem::Specification.new do |s|
 
   # Testing framework
   s.add_development_dependency 'rspec-rails', '~> 3.5'
+
+  # Fixture data
+  s.add_development_dependency 'factory_girl_rails', '~> 4.0'
+
+  # Freeze time in tests
+  s.add_development_dependency 'timecop', '~> 0.7.1'
+
+  # Dummy Rails app helper
+  s.add_development_dependency 'combustion', '~> 0.5.4'
+
+  # Database for test application
+  s.add_development_dependency 'sqlite3'
 end
