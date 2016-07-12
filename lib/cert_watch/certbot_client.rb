@@ -6,6 +6,11 @@ module CertWatch
     end
 
     def renew(domain)
+      if Rails.env.development?
+        Rails.logger.info("[CertWatch] Skipping certificate renewal for #{domain} in development.")
+        return
+      end
+
       system(renew_command(domain))
     end
 

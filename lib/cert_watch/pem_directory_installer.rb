@@ -7,6 +7,11 @@ module CertWatch
     end
 
     def install(domain)
+      if Rails.env.development?
+        Rails.logger.info("[CertWatch] Skipping certificate install for #{domain} in development.")
+        return
+      end
+
       write_pem_file(domain)
       perform_reload_command
     end
