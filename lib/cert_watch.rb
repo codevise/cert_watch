@@ -1,4 +1,4 @@
-require "cert_watch/engine"
+require 'cert_watch/engine'
 
 module CertWatch
   def self.config
