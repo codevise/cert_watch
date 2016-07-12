@@ -3,6 +3,10 @@ module CertWatch
     # Maximum age of certificates before renewal.
     attr_accessor :renewal_interval
 
+    # Number of expiring certificates to renew in one run of the
+    # `RenewExpiringCertificatesJob`.
+    attr_accessor :renewal_batch_size
+
     # File name of the certbot executable.
     attr_accessor :certbot_executable
 
@@ -20,6 +24,7 @@ module CertWatch
 
     def initialize
       @renewal_interval = 1.month
+      @renewal_batch_size = 10
 
       @certbot_executable = '/usr/local/share/letsencrypt/bin/certbot'
       @certbot_port = 9999

@@ -34,8 +34,8 @@ module CertWatch
     end
 
     scope(:installed, -> { where(state: 'installed') })
-    scope(:processing, -> { where(state: ['renewing', 'installing']) })
-    scope(:failed, -> { where(state: ['renewing_failed', 'installing_failed']) })
-    scope(:expiring, -> { where('installed_at < ?', CertWatch.config.renewal_interval.ago) })
+    scope(:processing, -> { where(state: %w(renewing installing)) })
+    scope(:failed, -> { where(state: %w(renewing_failed installing_failed)) })
+    scope(:expiring, -> { where('last_renewed_at < ?', CertWatch.config.renewal_interval.ago) })
   end
 end
