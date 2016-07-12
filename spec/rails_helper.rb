@@ -29,4 +29,8 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.when_first_matching_example_defined(inline_resque: true) do
+    require 'support/helpers/inline_resque'
+  end
 end

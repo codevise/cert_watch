@@ -16,9 +16,17 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   s.test_files = Dir['spec/**/*']
 
-  s.add_dependency 'rails', '~> 4.2.6'
+  # Rails engine bindings
+  s.add_dependency 'rails', '~> 4.0'
 
-  s.add_development_dependency 'sqlite3'
+  # Resque jobs and queues
+  s.add_dependency 'resque', '~> 1.25'
+
+  # State machines for active record
+  s.add_dependency 'state_machine', '~> 1.2'
+
+  # Trigger resque jobs with a state machine
+  s.add_dependency 'state_machine_job', '~> 0.2.0'
 
   # Testing framework
   s.add_development_dependency 'rspec-rails', '~> 3.5'
