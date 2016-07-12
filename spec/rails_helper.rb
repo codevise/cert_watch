@@ -14,6 +14,7 @@ require 'rspec/rails'
 require 'support/config/factory_girl'
 require 'support/config/timecop'
 require 'support/config/resque_logger'
+require 'support/config/cert_watch'
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

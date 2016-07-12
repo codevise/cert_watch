@@ -2,18 +2,20 @@ require 'cert_watch/engine'
 
 module CertWatch
   def self.config
-    @config ||= Configuration.new
+    fail('Call CertWatch.setup before accessing CertWatch.config') unless @config
+    @config
   end
 
   def self.setup
-    yield config
+    @config = Configuration.new
+    yield @config if block_given?
 
-    @client = CertbotClient.new(executable: config.certbot_executable,
-                                port: config.certbot_port)
+    self.client = CertbotClient.new(executable: config.certbot_executable,
+                                    port: config.certbot_port)
 
-    @installer = PemDirectoryInstaller.new(pem_directory: config.pem_directory,
-                                           input_directory: config.certbot_output_directory,
-                                           reload_command: config.server_reload_command)
+    self.installer = PemDirectoryInstaller.new(pem_directory: config.pem_directory,
+                                               input_directory: config.certbot_output_directory,
+                                               reload_command: config.server_reload_command)
   end
 
   mattr_accessor :client

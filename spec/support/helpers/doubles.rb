@@ -26,10 +26,3 @@ module Doubles
     end
   end
 end
-
-RSpec.configure do |config|
-  config.before do
-    CertWatch.client = Doubles.client
-    CertWatch.installer = Doubles.installer
-  end
-end
