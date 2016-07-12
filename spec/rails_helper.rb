@@ -33,4 +33,8 @@ RSpec.configure do |config|
   config.when_first_matching_example_defined(inline_resque: true) do
     require 'support/helpers/inline_resque'
   end
+
+  config.when_first_matching_example_defined(fixture_files: true) do
+    require 'support/helpers/fixtures'
+  end
 end

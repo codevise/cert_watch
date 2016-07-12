@@ -15,6 +15,9 @@ module CertWatch
     # Directory the web server reads pem files from
     attr_accessor :pem_directory
 
+    # Command to make server reload pem files
+    attr_accessor :server_reload_command
+
     def initialize
       @renewal_interval = 1.month
 
@@ -23,6 +26,7 @@ module CertWatch
       @certbot_output_directory = '/etc/letsencrypt/live'
 
       @pem_directory = '/etc/haproxy/ssl/'
+      @server_reload_command = '/etc/init.d/haproxy reload'
     end
   end
 end

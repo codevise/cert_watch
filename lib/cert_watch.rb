@@ -13,7 +13,8 @@ module CertWatch
                                 output_directory: config.certbot_output_directory)
 
     @installer = PemDirectoryInstaller.new(pem_directory: config.pem_directory,
-                                           input_directory: config.certbot_output_directory)
+                                           input_directory: config.certbot_output_directory,
+                                           reload_command: config.server_reload_command)
   end
 
   mattr_accessor :client
