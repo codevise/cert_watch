@@ -50,5 +50,14 @@ module CertWatch
         installer.install('some.example.com')
       end.to raise_error(InstallError, /Write command failed/)
     end
+
+    it 'fails if domain contains forbidden characters' do
+      installer = PemDirectoryInstaller.new(input_directory: 'live',
+                                            pem_directory: 'ssl')
+
+      expect do
+        installer.install('some.*example ".com')
+      end.to raise_error(Sanitize::ForbiddenCharacters)
+    end
   end
 end

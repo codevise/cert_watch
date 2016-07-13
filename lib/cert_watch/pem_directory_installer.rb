@@ -12,6 +12,7 @@ module CertWatch
         return
       end
 
+      Sanitize.check_domain!(domain)
       write_pem_file(domain)
       perform_reload_command
     end

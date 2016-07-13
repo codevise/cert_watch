@@ -25,6 +25,12 @@ module CertWatch
       expect(command).to include('-d some.example.com')
     end
 
+    it 'fails if domain contains forbidden characters' do
+      expect do
+        client.renew_command('some.example.com;" rm *')
+      end.to raise_error(Sanitize::ForbiddenCharacters)
+    end
+
     it 'passes --renew-by-default flag' do
       command = client.renew_command('some.example.com')
 
