@@ -46,7 +46,7 @@ Optionally:
 Add the following lines to your `Gemfile` and run `bundle install`:
 
 ```ruby
-gem 'cert-watch'
+gem 'cert_watch'
 
 # Required since state_machine gem is unmaintained
 gem 'state_machine', git: 'https://github.com/codevise/state_machine.git'
