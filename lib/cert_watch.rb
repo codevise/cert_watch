@@ -25,4 +25,8 @@ module CertWatch
   def self.active_admin_load_path
     Dir[CertWatch::Engine.root.join('admin')].first
   end
+
+  def self.domain_owner(options)
+    DomainOwner.define(options)
+  end
 end
