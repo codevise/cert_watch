@@ -1,5 +1,11 @@
 # CertWatch
 
+[![Gem Version](https://badge.fury.io/rb/cert_watch.svg)](http://badge.fury.io/rb/cert_watch)
+[![Dependency Status](https://gemnasium.com/badges/github.com/codevise/cert_watch.svg)](https://gemnasium.com/github.com/codevise/cert_watch)
+[![Build Status](https://travis-ci.org/codevise/cert_watch.svg?branch=master)](https://travis-ci.org/codevise/cert_watch)
+[![Coverage Status](https://coveralls.io/repos/github/codevise/cert_watch/badge.svg?branch=master)](https://coveralls.io/github/codevise/cert_watch?branch=master)
+[![Code Climate](https://codeclimate.com/github/codevise/cert_watch/badges/gpa.svg)](https://codeclimate.com/github/codevise/cert_watch)
+
 A Rails engine to manage and automatically obtain, install and renew
 SSL certificates.
 
