@@ -1,0 +1,47 @@
+de:
+  cert_watch:
+    states:
+      short:
+        not_found: "Nicht installiert"
+        not_installed: "Nicht installiert"
+        renewing: "Wird erneuert..."
+        renewing_failed: "Erneuerung fehlgeschlagen"
+        installing: "Wird installiert..."
+        installing_failed: "Installation fehlgeschlagen"
+        installed: "Installiert"
+        abandoned: "Nicht verwendet"
+      long:
+        not_found: "SSL nicht installiert"
+        not_installed: "SSL nicht installiert"
+        renewing: "SSL wird eingerichtet..."
+        renewing_failed: "SSL Erneuerung fehlgeschlagen"
+        installing: "SSL wird installiert..."
+        installing_failed: "SSL Installation fehlgeschlagen"
+        installed: "SSL installiert"
+        abandoned: "SSL Zertifikat nicht verwendet"
+    admin:
+      certificates:
+        renew: "Erneuern"
+        confirm_renew: "Soll das Zertifikat wirklich erneuert werden?"
+        install: "Installieren"
+        confirm_install: "Soll das Zertifikat wirklich installiert werden?"
+  activerecord:
+    models:
+      "cert_watch/certificate":
+        one: "SSL Zertifikat"
+        other: "SSL Zertifikate"
+    attributes:
+      "cert_watch/certificate":
+        domain: "Domain"
+        state: "Status"
+        created_at: "Erstellt am"
+        last_renewed_at: "Zuletzt erneuert"
+        last_renewal_failed_at: "Erneuerung fehlgeschlagen"
+        last_installed_at: "Zuletzt installiert"
+        last_install_failed_at: "Installation fehlgeschlagen"
+  active_admin:
+    scopes:
+      installed: "Installiert"
+      processing: "In Verarbeitung"
+      failed: "Fehlgeschlagen"
+      abandoned: "Nicht verwendet"

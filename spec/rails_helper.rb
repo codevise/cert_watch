@@ -38,4 +38,8 @@ RSpec.configure do |config|
   config.when_first_matching_example_defined(fixture_files: true) do
     require 'support/helpers/fixtures'
   end
+
+  config.when_first_matching_example_defined(type: :view_component) do
+    require 'support/helpers/view_component_example_group'
+  end
 end

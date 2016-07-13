@@ -42,4 +42,10 @@ Gem::Specification.new do |s|
 
   # Database for test application
   s.add_development_dependency 'sqlite3'
+
+  # Admin engine. Optional runtime dependency
+  s.add_development_dependency 'activeadmin'
+
+  # Browser integration testing
+  s.add_development_dependency 'capybara', '~> 2.7'
 end
