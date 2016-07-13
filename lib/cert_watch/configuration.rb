@@ -13,7 +13,7 @@ module CertWatch
     # Port for the standalone certbot HTTP server
     attr_accessor :certbot_port
 
-    # Directory to output obtained certificates to
+    # Directory certbot outputs certificates to
     attr_accessor :certbot_output_directory
 
     # Directory the web server reads pem files from
