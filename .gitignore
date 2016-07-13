@@ -4,3 +4,4 @@ log/*.log
 pkg/
 /spec/examples.txt
 /spec/internal/db/*.sqlite
+/coverage
