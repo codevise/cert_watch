@@ -9,7 +9,7 @@ de:
         installing: "Wird installiert..."
         installing_failed: "Installation fehlgeschlagen"
         installed: "Installiert"
-        abandoned: "Nicht verwendet"
+        abandoned: "Unbenutzt"
       long:
         not_found: "SSL nicht installiert"
         not_installed: "SSL nicht installiert"
@@ -18,7 +18,7 @@ de:
         installing: "SSL wird installiert..."
         installing_failed: "SSL Installation fehlgeschlagen"
         installed: "SSL installiert"
-        abandoned: "SSL Zertifikat nicht verwendet"
+        abandoned: "SSL Zertifikat unbenutzt"
     admin:
       certificates:
         renew: "Erneuern"
@@ -44,4 +44,4 @@ de:
       installed: "Installiert"
       processing: "In Verarbeitung"
       failed: "Fehlgeschlagen"
-      abandoned: "Nicht verwendet"
+      abandoned: "Unbenutzt"
