@@ -16,7 +16,7 @@ module CertWatch
 
     def renew_command(domain)
       Sanitize.check_domain!(domain)
-      "sudo #{@executable} #{flags} certonly -d #{domain}"
+      "sudo #{@executable} certonly #{flags} -d #{domain}"
     end
 
     private
