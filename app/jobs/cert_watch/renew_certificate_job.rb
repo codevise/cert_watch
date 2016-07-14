@@ -10,7 +10,7 @@ module CertWatch
       :ok
     rescue RenewError
       certificate.last_renewal_failed_at = Time.now
-      :error
+      fail
     end
   end
 end

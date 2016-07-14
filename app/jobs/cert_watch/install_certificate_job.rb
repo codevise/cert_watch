@@ -10,7 +10,7 @@ module CertWatch
       :ok
     rescue InstallError
       certificate.last_install_failed_at = Time.now
-      :error
+      fail
     end
   end
 end
