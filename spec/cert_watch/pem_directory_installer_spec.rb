@@ -32,7 +32,7 @@ module CertWatch
                                             reload_command: './not_there')
       expect do
         installer.install('some.example.com')
-      end.to raise_error(InstallError, /Reload command failed/)
+      end.to raise_error(InstallError)
     end
 
     it 'fails with InstallError if input files not found' do
@@ -40,7 +40,7 @@ module CertWatch
                                             pem_directory: 'ssl')
       expect do
         installer.install('not-there.example.com')
-      end.to raise_error(InstallError, /Write command failed/)
+      end.to raise_error(InstallError)
     end
 
     it 'fails with InstallError if output directory does not exist' do
@@ -48,7 +48,7 @@ module CertWatch
                                             pem_directory: 'not-there')
       expect do
         installer.install('some.example.com')
-      end.to raise_error(InstallError, /Write command failed/)
+      end.to raise_error(InstallError)
     end
 
     it 'fails if domain contains forbidden characters' do

@@ -3,6 +3,7 @@ module CertWatch
     def initialize(options)
       @executable = options.fetch(:executable)
       @port = options.fetch(:port)
+      @shell = options.fetch(:shell, Shell)
     end
 
     def renew(domain)
@@ -11,15 +12,17 @@ module CertWatch
         return
       end
 
-      system(renew_command(domain))
-    end
-
-    def renew_command(domain)
-      Sanitize.check_domain!(domain)
-      "sudo #{@executable} certonly #{flags} -d #{domain}"
+      @shell.sudo(renew_command(domain))
+    rescue Shell::CommandFailed => e
+      fail(RenewError, e.message)
     end
 
     private
+
+    def renew_command(domain)
+      Sanitize.check_domain!(domain)
+      "#{@executable} certonly #{flags} -d #{domain}"
+    end
 
     def flags
       '--agree-tos --renew-by-default ' \

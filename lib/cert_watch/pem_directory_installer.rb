@@ -20,7 +20,7 @@ module CertWatch
     private
 
     def write_pem_file(domain)
-      sudo('Write', "cat #{input_files(domain)} > #{pem_file(domain)}")
+      sudo("cat #{input_files(domain)} > #{pem_file(domain)}")
     end
 
     def input_files(domain)
@@ -35,19 +35,13 @@ module CertWatch
 
     def perform_reload_command
       return unless @reload_command
-      sudo('Reload', @reload_command)
+      sudo(@reload_command)
     end
 
-    def sudo(name, command)
-      output, input = IO.pipe
-      prefix = !Rails.env.test? ? 'sudo ' : ''
-
-      result = system([prefix, command].join, [:out, :err] => input)
-      input.close
-
-      unless result
-        fail(InstallError, "#{name} command failed with output:\n\n#{output.read}\n")
-      end
+    def sudo(command)
+      Shell.sudo(command)
+    rescue Shell::CommandFailed => e
+      fail(InstallError, e.message)
     end
   end
 end
