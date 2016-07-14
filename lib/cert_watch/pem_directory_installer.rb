@@ -13,11 +13,19 @@ module CertWatch
       end
 
       Sanitize.check_domain!(domain)
+
+      check_inputs_exist(domain)
       write_pem_file(domain)
       perform_reload_command
     end
 
     private
+
+    def check_inputs_exist(domain)
+      Shell.sudo("ls #{input_files(domain)}")
+    rescue Shell::CommandFailed
+      fail(InstallError, "Input files '#{input_files(domain)}' do not exist.")
+    end
 
     def write_pem_file(domain)
       sudo("cat #{input_files(domain)} > #{pem_file(domain)}")

@@ -43,6 +43,18 @@ module CertWatch
       end.to raise_error(InstallError)
     end
 
+    it 'does not create output file if input files not found' do
+      installer = PemDirectoryInstaller.new(input_directory: 'live',
+                                            pem_directory: 'ssl')
+
+      begin
+        installer.install('not-there.example.com')
+      rescue InstallError
+      end
+
+      expect(File.exist?('ssl/not-there.example.com.pem')).to eq(false)
+    end
+
     it 'fails with InstallError if output directory does not exist' do
       installer = PemDirectoryInstaller.new(input_directory: 'live',
                                             pem_directory: 'not-there')
