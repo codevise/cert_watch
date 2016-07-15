@@ -10,4 +10,7 @@ RSpec::Core::RakeTask.new(:spec)
 require 'bundler/gem_tasks'
 Bundler::GemHelper.install_tasks
 
+require 'semmy'
+Semmy::Tasks.install
+
 task default: :spec

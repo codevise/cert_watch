@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.authors     = ['Tim Fischbach']
   s.email       = ['tfischbach@codevise.de']
   s.summary     = 'Rails engine for automatically renewing SSL certificates.'
-  s.homepage    = 'http://gitlab.codevise.de/codevise/cert_watch'
+  s.homepage    = 'https://github.com/codevise/cert_watch'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
@@ -48,4 +48,7 @@ Gem::Specification.new do |s|
 
   # Browser integration testing
   s.add_development_dependency 'capybara', '~> 2.7'
+
+  # Semantic versioning rake tasks
+  s.add_development_dependency 'semmy', '~> 0.2.0'
 end
