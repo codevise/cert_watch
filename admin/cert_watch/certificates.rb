@@ -1,3 +1,5 @@
+require 'cert_watch/views/all'
+
 module CertWatch
   ActiveAdmin.register Certificate do
     menu priority: 100
