@@ -86,5 +86,11 @@ module CertWatch
         row :last_install_failed_at
       end
     end
+
+    controller do
+      def permitted_params
+        params.permit(cert_watch_certificate: [:domain])
+      end
+    end
   end
 end
