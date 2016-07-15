@@ -149,3 +149,8 @@ div(class: 'account_cname') do
   cert_watch_certificate_state(account.cname)
 end
 ```
+
+## Troubleshooting
+
+If you run into problems or want to discuss a feature request, please
+[file an issue](https://github.com/codevise/cert_watch/issues?state=open).
