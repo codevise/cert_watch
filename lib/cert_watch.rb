@@ -11,11 +11,14 @@ module CertWatch
     yield @config if block_given?
 
     self.client = CertbotClient.new(executable: config.certbot_executable,
-                                    port: config.certbot_port)
+                                    port: config.certbot_port,
+                                    output_directory: config.certbot_output_directory)
 
-    self.installer = PemDirectoryInstaller.new(pem_directory: config.pem_directory,
-                                               input_directory: config.certbot_output_directory,
-                                               reload_command: config.server_reload_command)
+    self.installer =
+      PemDirectoryInstaller
+      .new(pem_directory: config.pem_directory,
+           provider_directory_mapping: config.provider_install_directory_mapping,
+           reload_command: config.server_reload_command)
   end
 
   mattr_accessor :client

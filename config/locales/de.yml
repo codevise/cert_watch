@@ -27,6 +27,10 @@ de:
         confirm_install: "Soll das Zertifikat wirklich installiert werden?"
   activerecord:
     models:
+      # Required for ActiveAdmin navigation
+      certificate:
+        one: "SSL Zertifikat"
+        other: "SSL Zertifikate"
       "cert_watch/certificate":
         one: "SSL Zertifikat"
         other: "SSL Zertifikate"
@@ -39,6 +43,10 @@ de:
         last_renewal_failed_at: "Erneuerung fehlgeschlagen"
         last_installed_at: "Zuletzt installiert"
         last_install_failed_at: "Installation fehlgeschlagen"
+        provider: "Typ"
+        public_key: "Zertifikat"
+        private_key: "Privater Schlüssel"
+        chain: "Zertifikatskette"
   active_admin:
     scopes:
       installed: "Installiert"

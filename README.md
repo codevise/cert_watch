@@ -16,6 +16,7 @@ CertWatch consists of the following components:
 * Resque jobs to renew and install certificates.
 * A mixin for models with a `cname` attribute to request certificats
   on attribute change.
+* Rake tasks to reinstall certificates on a fresh server
 
 Optionally:
 
@@ -76,11 +77,25 @@ CertWatch.setup do |config|
   # config.certbot_output_directory = '/etc/letsencrypt/live'
 
   # Directory the web server reads pem files from
-  # config.pem_directory = '/etc/haproxy/ssl/
+  # config.pem_directory = '/etc/haproxy/ssl/'
+
+  # Place pem files in provider specific subdirectories of pem directory.
+  # By default, all pem files are placed in pem directory itself.
+  # config.provider_install_directory_mapping = {
+  #   certbot: 'letsencrypt',
+  #   custom: 'custom'
+  # }
 
   # Command to make server reload pem files
   # config.server_reload_command = '/etc/init.d/haproxy reload'
 end
+```
+
+Ensure private keys do not show up in log files:
+
+```ruby
+# config/initializers/filter_parameter_logging.rb
+Rails.application.config.filter_parameters += [:private_key]
 ```
 
 Include the `DomainOwner` mixin into a model with a domain
@@ -104,7 +119,7 @@ to the top of your Active Admin initializer:
 ActiveAdmin.application.load_paths.unshift(CertWatch.active_admin_load_path)
 ```
 
-If you use the CanCan authorization adapter, you also need add the
+If you use the CanCan authorization adapter, you also need to add the
 following rule for users that should be allowed to manage certificats:
 
 ```ruby
@@ -134,6 +149,21 @@ fetch_billed_traffic_usages:
 
 Finally ensure Resque workers have been assigned to the `cert_watch`
 queue.
+
+## Rake Tasks
+
+Add the following line to your application's `Rakefile`:
+
+```ruby
+# Rakefile
+require 'cert_watch/tasks'
+```
+
+To reinstall all certificates (i.e. on a new server), run:
+
+```
+$ bin/rake cert_watch:reinstall:all
+```
 
 ## Active Admin View Components
 

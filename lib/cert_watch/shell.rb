@@ -4,10 +4,15 @@ module CertWatch
 
     class CommandFailed < Error; end
 
+    def sudo_read(file_name)
+      sudo("cat #{file_name}")
+    end
+
     def sudo(command)
       output, input = IO.pipe
+      env = 'LANG=en '
       prefix = !Rails.env.test? ? 'sudo ' : ''
-      full_command = [prefix, command].join
+      full_command = [env, prefix, command].join
 
       result = system(full_command, [:out, :err] => input)
       input.close
@@ -15,6 +20,8 @@ module CertWatch
       unless result
         fail(CommandFailed, "Command '#{full_command}' failed with output:\n\n#{output.read}\n")
       end
+
+      output.read
     end
   end
 end

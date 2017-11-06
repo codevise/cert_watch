@@ -27,6 +27,10 @@ en:
         confirm_install: "Are you sure you want to reinstall this certificate?"
   activerecord:
     models:
+      # Required for ActiveAdmin navigation
+      certificate:
+        one: "SSL Certificate"
+        other: "SSL Certificates"
       "cert_watch/certificate":
         one: "SSL Certificate"
         other: "SSL Certificates"
@@ -39,6 +43,10 @@ en:
         last_renewal_failed_at: "Last failed renewal"
         last_installed_at: "Last installed at"
         last_install_failed_at: "Last failed install"
+        provider: "Type"
+        public_key: "Certificate"
+        private_key: "Private Key"
+        chain: "Intermediate Certificates"
   active_admin:
     scopes:
       installed: "Installed"

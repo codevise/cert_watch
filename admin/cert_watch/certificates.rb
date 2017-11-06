@@ -4,7 +4,7 @@ module CertWatch
   ActiveAdmin.register Certificate do
     menu priority: 100
 
-    actions :index, :new, :create, :show
+    actions :index, :new, :create, :show, :edit, :update
 
     config.batch_actions = false
 
@@ -29,10 +29,14 @@ module CertWatch
 
     filter :domain
     filter :last_renewed_at
+    filter :provider, as: :select, collection: Certificate::PROVIDERS
 
     form do |f|
       f.inputs do
         f.input :domain
+        f.input :public_key
+        f.input :private_key
+        f.input :chain
       end
       f.actions
     end
@@ -84,12 +88,17 @@ module CertWatch
         row :last_renewal_failed_at
         row :last_installed_at
         row :last_install_failed_at
+        row :public_key
       end
+    end
+
+    before_create do |certificate|
+      certificate.provider = 'custom'
     end
 
     controller do
       def permitted_params
-        params.permit(cert_watch_certificate: [:domain])
+        params.permit(certificate: [:domain, :public_key, :private_key, :chain])
       end
     end
   end

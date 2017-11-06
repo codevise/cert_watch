@@ -1,5 +1,5 @@
 module CertWatch
-  class PemDirectoryInstaller < Installer
+  class Installer
     def install(_domain)
       fail(NotImplementedError)
     end
