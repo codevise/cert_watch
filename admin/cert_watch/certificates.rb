@@ -1,7 +1,7 @@
 require 'cert_watch/views/all'
 
 module CertWatch
-  ActiveAdmin.register Certificate do
+  ActiveAdmin.register Certificate, as: 'Certificate' do
     menu priority: 100
 
     actions :index, :new, :create, :show, :edit, :update
@@ -10,7 +10,7 @@ module CertWatch
 
     index do
       column :domain do |certificate|
-        link_to(certificate.domain, admin_cert_watch_certificate_path(certificate))
+        link_to(certificate.domain, admin_certificate_path(certificate))
       end
       column :state do |certificate|
         cert_watch_certificate_state(certificate)
@@ -41,10 +41,10 @@ module CertWatch
       f.actions
     end
 
-    action_item(only: :show) do
+    action_item(:renew, only: :show) do
       if resource.can_renew?
         button_to(I18n.t('cert_watch.admin.certificates.renew'),
-                  renew_admin_cert_watch_certificate_path(resource),
+                  renew_admin_certificate_path(resource),
                   method: :post,
                   data: {
                     rel: 'renew',
@@ -53,10 +53,10 @@ module CertWatch
       end
     end
 
-    action_item(only: :show) do
+    action_item(:install, only: :show) do
       if resource.can_install?
         button_to(I18n.t('cert_watch.admin.certificates.install'),
-                  install_admin_cert_watch_certificate_path(resource),
+                  install_admin_certificate_path(resource),
                   method: :post,
                   data: {
                     rel: 'install',
@@ -68,13 +68,13 @@ module CertWatch
     member_action :renew, method: :post do
       resource = Certificate.find(params[:id])
       resource.renew
-      redirect_to(admin_cert_watch_certificate_path(resource))
+      redirect_to(admin_certificate_path(resource))
     end
 
     member_action :install, method: :post do
       resource = Certificate.find(params[:id])
       resource.install
-      redirect_to(admin_cert_watch_certificate_path(resource))
+      redirect_to(admin_certificate_path(resource))
     end
 
     show title: :domain do |certificate|
