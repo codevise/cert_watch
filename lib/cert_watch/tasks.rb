@@ -5,7 +5,7 @@ module CertWatch
     extend Rake::DSL
 
     namespace :cert_watch do
-      namespace :reinstall do
+      namespace reinstall: :environment do
         desc 'Rewrite certificate files from database contents.'
         task :all do
           Certificate.installed.each(&:install)
@@ -14,7 +14,7 @@ module CertWatch
 
       namespace :import do
         desc 'Read certbot outputs for all certificates and store in database.'
-        task :certbot do
+        task certbot: :environment do
           Certificate.auto_renewable.installed.each do |certificate|
             result = CertWatch.client.read_outputs(certificate.domain)
             certificate.update!(result.slice(:public_key, :private_key, :chain))
