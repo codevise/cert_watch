@@ -5,9 +5,9 @@ module CertWatch
     extend Rake::DSL
 
     namespace :cert_watch do
-      namespace reinstall: :environment do
+      namespace :reinstall do
         desc 'Rewrite certificate files from database contents.'
-        task :all do
+        task all: :environment do
           Certificate.installed.each(&:install)
         end
       end
