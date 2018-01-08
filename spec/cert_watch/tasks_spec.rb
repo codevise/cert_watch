@@ -4,6 +4,8 @@ require 'cert_watch/tasks'
 require 'support/helpers/doubles'
 require 'support/helpers/inline_resque'
 
+Rake::Task.define_task(:environment)
+
 RSpec.describe 'tasks', fixture_files: true, inline_resque: true do
   describe 'cert_watch:reinstall:all' do
     it 'reinstalls installed certificates' do
