@@ -1,15 +1,11 @@
 # CHANGELOG
 
-### Version 1.1.0
+### Unreleased Changes
 
-2018-01-08
+[Compare changes](https://github.com/codevise/cert_watch/compare/1-1-stable...master)
 
-[Compare changes](https://github.com/codevise/cert_watch/compare/1-0-stable...v1.1.0)
+None so far.
 
-- Support `state_machine_job` 1.x.
-
-### Version 1.0.0
-
-2016-07-15
-
-Initial release.
+See
+[1-1-stable branch](https://github.com/codevise/cert_watch/blob/1-1-stable/CHANGELOG.md)
+for previous changes.
