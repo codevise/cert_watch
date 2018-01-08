@@ -20,6 +20,27 @@ module CertWatch
       expect(certificate.state).to eq('renewing')
     end
 
+    it 'does not create certificate of custom certificate exists' do
+      create(:certificate,
+             state: 'installed',
+             provider: 'custom',
+             domain: 'custom.example.com')
+
+      expect do
+        test_domain_owner_model.create!(cname: 'custom.example.com')
+      end.not_to change { Certificate.count }
+    end
+
+    it 'does not renew existing custom certificate' do
+      certificate = create(:certificate,
+                           state: 'installed',
+                           provider: 'custom',
+                           domain: 'custom.example.com')
+      test_domain_owner_model.create!(cname: 'custom.example.com')
+
+      expect(certificate.reload.state).to eq('installed')
+    end
+
     it 'renews certificate on update' do
       domain_owner = test_domain_owner_model.create!(cname: 'old.example.com')
 

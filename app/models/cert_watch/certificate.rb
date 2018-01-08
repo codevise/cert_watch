@@ -1,5 +1,9 @@
 module CertWatch
   class Certificate < ActiveRecord::Base
+    PROVIDERS = %w(certbot custom).freeze
+
+    validates :provider, inclusion: PROVIDERS
+
     state_machine initial: 'not_installed' do
       extend StateMachineJob::Macro
 
@@ -12,6 +16,7 @@ module CertWatch
       end
 
       event :install do
+        transition 'not_installed' => 'installing'
         transition 'installed' => 'installing'
         transition 'installing_failed' => 'installing'
       end
@@ -38,5 +43,30 @@ module CertWatch
     scope(:failed, -> { where(state: %w(renewing_failed installing_failed)) })
     scope(:expiring, -> { where('last_renewed_at < ?', CertWatch.config.renewal_interval.ago) })
     scope(:abandoned, -> { where(state: 'abandoned') })
+
+    scope(:auto_renewable, -> { where.not(provider: 'custom') })
+    scope(:custom, -> { where(provider: 'custom') })
+
+    def can_renew?
+      auto_renewable? && super
+    end
+
+    def can_install?
+      complete? && super
+    end
+
+    def auto_renewable?
+      !custom?
+    end
+
+    def custom?
+      provider == 'custom'
+    end
+
+    def complete?
+      public_key.present? &&
+        private_key.present? &&
+        chain.present?
+    end
   end
 end

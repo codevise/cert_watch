@@ -1,3 +1,5 @@
+require 'support/helpers/doubles'
+
 RSpec.configure do |config|
   config.before do
     CertWatch.setup

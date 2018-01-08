@@ -13,7 +13,11 @@ module CertWatch
               new_value = self[attribute]
 
               Certificate.find_by(domain: previous_value).try(:abandon)
-              Certificate.find_or_create_by(domain: new_value).renew if new_value.present?
+
+              if new_value.present?
+                certificate = Certificate.find_or_create_by(domain: new_value)
+                certificate.renew! if certificate.auto_renewable?
+              end
             end
           end
         end

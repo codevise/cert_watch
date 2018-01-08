@@ -1,0 +1,1 @@
+ActiveAdmin.application.load_paths.unshift(CertWatch.active_admin_load_path)

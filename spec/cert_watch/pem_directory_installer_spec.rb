@@ -3,72 +3,91 @@ require 'rails_helper'
 module CertWatch
   RSpec.describe PemDirectoryInstaller, fixture_files: true do
     before do
-      Fixtures.file('live/some.example.com/fullchain.pem', "FULL CHAIN\n")
-      Fixtures.file('live/some.example.com/privkey.pem', "PRIVATE KEY\n")
-      Fixtures.directory('ssl')
+      Fixtures.directory('ssl/letsencrypt')
     end
 
     it 'concatenates full chain and private key files' do
-      installer = PemDirectoryInstaller.new(input_directory: 'live',
-                                            pem_directory: 'ssl',
+      installer = PemDirectoryInstaller.new(pem_directory: 'ssl',
                                             reload_command: 'touch reload.txt')
-      installer.install('some.example.com')
+      installer.install(domain: 'some.example.com',
+                        provider: 'custom',
+                        public_key: "PUBLIC KEY\n",
+                        chain: "CHAIN\n",
+                        private_key: "PRIVATE KEY\n")
 
-      expect(File.read('ssl/some.example.com.pem')).to eq("FULL CHAIN\nPRIVATE KEY\n")
+      expect(File.read('ssl/some.example.com.pem')).to eq("PUBLIC KEY\nCHAIN\nPRIVATE KEY\n")
+    end
+
+    it 'ensures new lines between keys' do
+      installer = PemDirectoryInstaller.new(pem_directory: 'ssl',
+                                            reload_command: 'touch reload.txt')
+      installer.install(domain: 'some.example.com',
+                        provider: 'custom',
+                        public_key: 'PUBLIC KEY',
+                        chain: 'CHAIN',
+                        private_key: 'PRIVATE KEY')
+
+      expect(File.read('ssl/some.example.com.pem')).to eq("PUBLIC KEY\nCHAIN\nPRIVATE KEY\n")
+    end
+
+    it 'supports writing into provider specific directories' do
+      installer = PemDirectoryInstaller.new(pem_directory: 'ssl',
+                                            provider_directory_mapping: {certbot: 'letsencrypt'},
+                                            reload_command: 'touch reload.txt')
+      installer.install(domain: 'some.example.com',
+                        provider: 'certbot',
+                        public_key: "PUBLIC KEY\n",
+                        chain: "CHAIN\n",
+                        private_key: "PRIVATE KEY\n")
+
+      expect(File.read('ssl/letsencrypt/some.example.com.pem'))
+        .to eq("PUBLIC KEY\nCHAIN\nPRIVATE KEY\n")
     end
 
     it 'invokes reload command' do
-      installer = PemDirectoryInstaller.new(input_directory: 'live',
-                                            pem_directory: 'ssl',
+      installer = PemDirectoryInstaller.new(pem_directory: 'ssl',
                                             reload_command: 'touch reload.txt')
-      installer.install('some.example.com')
+      installer.install(domain: 'some.example.com',
+                        provider: 'custom',
+                        public_key: "PUBLIC KEY\n",
+                        chain: "CHAIN\n",
+                        private_key: "PRIVATE KEY\n")
 
       expect(File.exist?('reload.txt')).to eq(true)
     end
 
     it 'fails with InstallError if reload command fails' do
-      installer = PemDirectoryInstaller.new(input_directory: 'live',
-                                            pem_directory: 'ssl',
+      installer = PemDirectoryInstaller.new(pem_directory: 'ssl',
                                             reload_command: './not_there')
       expect do
-        installer.install('some.example.com')
+        installer.install(domain: 'some.example.com',
+                          provider: 'custom',
+                          public_key: "PUBLIC KEY\n",
+                          chain: "CHAIN\n",
+                          private_key: "PRIVATE KEY\n")
       end.to raise_error(InstallError)
-    end
-
-    it 'fails with InstallError if input files not found' do
-      installer = PemDirectoryInstaller.new(input_directory: 'live',
-                                            pem_directory: 'ssl')
-      expect do
-        installer.install('not-there.example.com')
-      end.to raise_error(InstallError)
-    end
-
-    it 'does not create output file if input files not found' do
-      installer = PemDirectoryInstaller.new(input_directory: 'live',
-                                            pem_directory: 'ssl')
-
-      begin
-        installer.install('not-there.example.com')
-      rescue InstallError
-      end
-
-      expect(File.exist?('ssl/not-there.example.com.pem')).to eq(false)
     end
 
     it 'fails with InstallError if output directory does not exist' do
-      installer = PemDirectoryInstaller.new(input_directory: 'live',
-                                            pem_directory: 'not-there')
+      installer = PemDirectoryInstaller.new(pem_directory: 'not-there')
       expect do
-        installer.install('some.example.com')
+        installer.install(domain: 'some.example.com',
+                          provider: 'custom',
+                          public_key: "PUBLIC KEY\n",
+                          chain: "CHAIN\n",
+                          private_key: "PRIVATE KEY\n")
       end.to raise_error(InstallError)
     end
 
     it 'fails if domain contains forbidden characters' do
-      installer = PemDirectoryInstaller.new(input_directory: 'live',
-                                            pem_directory: 'ssl')
+      installer = PemDirectoryInstaller.new(pem_directory: 'ssl')
 
       expect do
-        installer.install('some.*example ".com')
+        installer.install(domain: 'some.*example ".com',
+                          provider: 'custom',
+                          public_key: "PUBLIC KEY\n",
+                          chain: "CHAIN\n",
+                          private_key: "PRIVATE KEY\n")
       end.to raise_error(Sanitize::ForbiddenCharacters)
     end
   end
