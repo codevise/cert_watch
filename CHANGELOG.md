@@ -1,6 +1,6 @@
 # CHANGELOG
 
-### Changes on `master`
+### Unreleased Changes
 
 [Compare changes](https://github.com/codevise/cert_watch/compare/v1.0.0...master)
 

@@ -50,5 +50,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'capybara', '~> 2.7'
 
   # Semantic versioning rake tasks
-  s.add_development_dependency 'semmy', '~> 0.2.0'
+  s.add_development_dependency 'semmy', '~> 1.0'
 end
