@@ -6,7 +6,7 @@
 
 ##### Breaking Changes
 
-- Certificates are now stored in database
+- Certificates are now stored in database. ([#1](https://github.com/codevise/cert_watch/pull/1))
 
   This allows recreating certificates on disk when creating new application
   instances.
@@ -37,7 +37,6 @@
   ```
   bundle exec rake cert_watch:import:certbot
   ```
-  ([#1](https://github.com/codevise/cert_watch/pull/1))
 
 ##### New Features
 
