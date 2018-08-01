@@ -1,4 +1,4 @@
-class CreateCertificates < ActiveRecord::Migration
+class CreateCertificates < ActiveRecord::Migration[4.2]
   def change
     create_table :cert_watch_certificates do |t|
       t.string :state, default: 'not_installed', null: false

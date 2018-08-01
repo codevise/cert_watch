@@ -21,7 +21,7 @@ module Admin
       it 'displays renew button for auto renewable certificate' do
         certificate = create(:certificate, :auto_renewable)
 
-        get(:show, id: certificate)
+        get(:show, params: { id: certificate })
 
         expect(response.body).to have_selector('[data-rel=renew]')
       end
@@ -29,7 +29,7 @@ module Admin
       it 'displays install button for complete certificate' do
         certificate = create(:certificate, :custom, :complete)
 
-        get(:show, id: certificate)
+        get(:show, params: { id: certificate })
 
         expect(response.body).to have_selector('[data-rel=install]')
       end
@@ -39,7 +39,7 @@ module Admin
       it 'renews certificate' do
         certificate = create(:certificate, :auto_renewable)
 
-        post(:renew, id: certificate)
+        post(:renew, params: { id: certificate })
 
         expect(certificate.reload.state).to eq('renewing')
       end
@@ -49,7 +49,7 @@ module Admin
       it 'installs certificate' do
         certificate = create(:certificate, :complete, :auto_renewable)
 
-        post(:install, id: certificate)
+        post(:install, params: { id: certificate })
 
         expect(certificate.reload.state).to eq('installing')
       end
@@ -57,12 +57,14 @@ module Admin
 
     describe '#create' do
       it 'creates custom certificate' do
-        post(:create, certificate: {
-               domain: 'test.example.com',
-               public_key: 'PUBLIC',
-               private_key: 'PRIVATE',
-               chain: 'CHAIN'
-             })
+        post(:create, params: {
+               certificate: {
+                      domain: 'test.example.com',
+                      public_key: 'PUBLIC',
+                      private_key: 'PRIVATE',
+                      chain: 'CHAIN'
+                    }
+        })
 
         expect(CertWatch::Certificate.custom.where(domain: 'test.example.com')).to exist
       end
