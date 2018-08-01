@@ -11,9 +11,8 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
-require 'support/config/factory_girl'
+require 'support/config/factory_bot'
 require 'support/config/timecop'
-require 'support/config/resque_logger'
 require 'support/config/cert_watch'
 
 # Checks for pending migration and applies them before tests are run.
@@ -31,8 +30,8 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.when_first_matching_example_defined(inline_resque: true) do
-    require 'support/helpers/inline_resque'
+  config.when_first_matching_example_defined(perform_jobs: true) do
+    require 'support/helpers/perform_jobs'
   end
 
   config.when_first_matching_example_defined(fixture_files: true) do

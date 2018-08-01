@@ -21,7 +21,7 @@ module CertWatch
         add_class 'cert_watch_certificate_state'
 
         status_tag(t(state, scope: "cert_watch.states.#{format}"),
-                   [state, STATE_MAPPING[state]].compact.join(' '))
+                   class: [state, STATE_MAPPING[state]].compact.join(' '))
       end
 
       private

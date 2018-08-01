@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 require 'support/helpers/doubles'
-require 'support/helpers/inline_resque'
+require 'support/helpers/perform_jobs'
 
 module CertWatch
-  RSpec.describe Certificate, inline_resque: true do
+  RSpec.describe Certificate, perform_jobs: true do
     describe '.auto_renewable' do
       it 'includes auto renewable certificates' do
         certificate = create(:certificate, :auto_renewable)

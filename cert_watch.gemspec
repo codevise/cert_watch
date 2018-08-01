@@ -17,37 +17,37 @@ Gem::Specification.new do |s|
   s.test_files = Dir['spec/**/*']
 
   # Rails engine bindings
-  s.add_dependency 'rails', '~> 4.0'
+  s.add_dependency 'rails', '~> 5.2.0'
 
   # Resque jobs and queues
   s.add_dependency 'resque', '~> 1.25'
 
   # State machines for active record
-  s.add_dependency 'state_machine', '~> 1.2'
+  s.add_dependency 'state_machines-activerecord', '~> 0.5.1'
 
   # Trigger resque jobs with a state machine
-  s.add_dependency 'state_machine_job', ['>= 0.2', '< 2']
+  s.add_dependency 'state_machine_job', '~> 3.0'
 
   # Testing framework
-  s.add_development_dependency 'rspec-rails', '~> 3.5'
+  s.add_development_dependency 'rspec-rails', '~> 3.7'
 
   # Fixture data
-  s.add_development_dependency 'factory_girl_rails', '~> 4.0'
+  s.add_development_dependency 'factory_bot_rails', '~> 4.8'
 
   # Freeze time in tests
   s.add_development_dependency 'timecop', '~> 0.7.1'
 
   # Dummy Rails app helper
-  s.add_development_dependency 'combustion', '~> 0.5.4'
+  s.add_development_dependency 'combustion', '~> 0.9.1'
 
   # Database for test application
   s.add_development_dependency 'sqlite3'
 
   # Admin engine. Optional runtime dependency
-  s.add_development_dependency 'activeadmin', '1.0.0.pre2'
+  s.add_development_dependency 'activeadmin', '~> 1.0'
 
   # Browser integration testing
-  s.add_development_dependency 'capybara', '~> 2.7'
+  s.add_development_dependency 'capybara', '~> 3.4'
 
   # Semantic versioning rake tasks
   s.add_development_dependency 'semmy', '~> 1.0'

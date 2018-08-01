@@ -8,8 +8,8 @@ module CertWatch
 
         included do
           after_save do
-            if changed.include?(attribute)
-              previous_value = changes[attribute].first
+            if saved_change_to_attribute?(attribute)
+              previous_value = saved_change_to_attribute(attribute).first
               new_value = self[attribute]
 
               Certificate.find_by(domain: previous_value).try(:abandon)
