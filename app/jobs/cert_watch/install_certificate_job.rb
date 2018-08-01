@@ -1,10 +1,10 @@
 module CertWatch
-  class InstallCertificateJob
-    extend StateMachineJob
+  class InstallCertificateJob < CertWatch::ApplicationJob
+    queue_as :cert_watch
 
-    @queue = :cert_watch
+    include StateMachineJob
 
-    def self.perform_with_result(certificate, _options = {})
+    def perform_with_result(certificate, _options = {})
       CertWatch.installer.install(domain: certificate.domain,
                                   provider: certificate.provider,
                                   public_key: certificate.public_key,

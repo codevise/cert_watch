@@ -1,10 +1,10 @@
 module CertWatch
-  class RenewCertificateJob
-    extend StateMachineJob
+  class RenewCertificateJob < CertWatch::ApplicationJob
+    queue_as :cert_watch
 
-    @queue = :cert_watch
+    include StateMachineJob
 
-    def self.perform_with_result(certificate, _options = {})
+    def perform_with_result(certificate, _options = {})
       result = CertWatch.client.renew(certificate.domain)
 
       certificate.attributes = result.slice(:public_key, :private_key, :chain)

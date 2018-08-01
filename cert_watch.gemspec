@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'state_machine', '~> 1.2'
 
   # Trigger resque jobs with a state machine
-  s.add_dependency 'state_machine_job', ['>= 0.2', '< 2']
+  s.add_dependency 'state_machine_job', '~> 3.0'
 
   # Testing framework
   s.add_development_dependency 'rspec-rails', '~> 3.7'

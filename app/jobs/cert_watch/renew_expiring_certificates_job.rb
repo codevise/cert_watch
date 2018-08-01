@@ -1,8 +1,8 @@
 module CertWatch
-  class RenewExpiringCertificatesJob
-    @queue = :cert_watch
+  class RenewExpiringCertificatesJob < CertWatch::ApplicationJob
+    queue_as :cert_watch
 
-    def self.perform
+    def perform
       Certificate
         .auto_renewable
         .installed

@@ -2,11 +2,11 @@ require 'rails_helper'
 require 'cert_watch/tasks'
 
 require 'support/helpers/doubles'
-require 'support/helpers/inline_resque'
+require 'support/helpers/perform_jobs'
 
 Rake::Task.define_task(:environment)
 
-RSpec.describe 'tasks', fixture_files: true, inline_resque: true do
+RSpec.describe 'tasks', fixture_files: true, perform_jobs: true do
   describe 'cert_watch:reinstall:all' do
     it 'reinstalls installed certificates' do
       create(:certificate, state: 'installed', domain: 'some.example.com')
