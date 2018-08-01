@@ -11,7 +11,7 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
-require 'support/config/factory_girl'
+require 'support/config/factory_bot'
 require 'support/config/timecop'
 require 'support/config/cert_watch'
 

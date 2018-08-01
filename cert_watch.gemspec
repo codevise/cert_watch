@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails', '~> 3.7'
 
   # Fixture data
-  s.add_development_dependency 'factory_girl_rails', '~> 4.0'
+  s.add_development_dependency 'factory_bot_rails', '~> 4.8'
 
   # Freeze time in tests
   s.add_development_dependency 'timecop', '~> 0.7.1'
