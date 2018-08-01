@@ -1,4 +1,4 @@
-require 'state_machine'
+require 'state_machines-activerecord'
 require 'state_machine_job'
 
 module CertWatch
