@@ -5,6 +5,6 @@ module CertWatch
   class Engine < ::Rails::Engine
     isolate_namespace CertWatch
 
-    config.autoload_paths << File.join(config.root, 'lib')
+    config.paths.add('lib', eager_load: true)
   end
 end
