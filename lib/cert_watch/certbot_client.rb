@@ -32,7 +32,7 @@ module CertWatch
 
     def renew_command(domain)
       Sanitize.check_domain!(domain)
-      "#{@executable} certonly #{flags} -d #{domain}"
+      "#{@executable} certonly #{flags} -d '#{domain}'"
     end
 
     def flags
@@ -41,7 +41,7 @@ module CertWatch
     end
 
     def read_output(domain, file_name)
-      @shell.sudo_read(File.join(@output_directory, domain, file_name))
+      @shell.sudo_read("'#{File.join(@output_directory, domain, file_name)}'")
     end
   end
 end

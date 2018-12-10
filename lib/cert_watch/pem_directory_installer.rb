@@ -28,7 +28,7 @@ module CertWatch
     end
 
     def write_pem_file(provider, domain, contents)
-      sudo("echo -n '#{contents}' > #{pem_file(provider, domain)}")
+      sudo("echo -n '#{contents}' > '#{pem_file(provider, domain)}'")
     end
 
     def pem_file(provider, domain)

@@ -1,8 +1,11 @@
 module CertWatch
   class Certificate < ActiveRecord::Base
     PROVIDERS = %w(certbot custom).freeze
+    FORBIDDEN_DOMAIN_CHARACTERS = /[^0-9a-zA-Z*.-]/.freeze
 
     validates :provider, inclusion: PROVIDERS
+    validates :domain, format: { without: FORBIDDEN_DOMAIN_CHARACTERS,
+                                 message: "contains forbidden characters." }
 
     state_machine initial: 'not_installed' do
       extend StateMachineJob::Macro

@@ -44,6 +44,20 @@ module CertWatch
         .to eq("PUBLIC KEY\nCHAIN\nPRIVATE KEY\n")
     end
 
+    it 'supports creating wildcard certificate files' do
+      installer = PemDirectoryInstaller.new(pem_directory: 'ssl',
+                                            provider_directory_mapping: {certbot: 'letsencrypt'},
+                                            reload_command: 'touch reload.txt')
+      installer.install(domain: '*.some.example.com',
+                        provider: 'certbot',
+                        public_key: "PUBLIC KEY\n",
+                        chain: "CHAIN\n",
+                        private_key: "PRIVATE KEY\n")
+
+      expect(File.read('ssl/letsencrypt/*.some.example.com.pem'))
+          .to eq("PUBLIC KEY\nCHAIN\nPRIVATE KEY\n")
+    end
+
     it 'invokes reload command' do
       installer = PemDirectoryInstaller.new(pem_directory: 'ssl',
                                             reload_command: 'touch reload.txt')

@@ -3,6 +3,12 @@ require 'rails_helper'
 module CertWatch
   RSpec.describe Sanitize do
     describe '.check_domain!' do
+      it 'allows wildcard format for domains' do
+        expect do
+          Sanitize.check_domain!("*.domain.com")
+        end.not_to raise_error(Sanitize::ForbiddenCharacters)
+      end
+
       it 'fails if string contains forbidden characters' do
         expect do
           Sanitize.check_domain!('some.12-; rm *"')
