@@ -5,6 +5,7 @@ module CertWatch
       @port = options.fetch(:port)
       @output_directory = options.fetch(:output_directory)
       @shell = options.fetch(:shell, Shell)
+      @flags = options.fetch(:flags)
     end
 
     def renew(domain)
@@ -36,8 +37,7 @@ module CertWatch
     end
 
     def flags
-      '--agree-tos --renew-by-default ' \
-      "--standalone --standalone-supported-challenges http-01 --http-01-port #{@port}"
+      "#{@flags} --http-01-port #{@port}"
     end
 
     def read_output(domain, file_name)

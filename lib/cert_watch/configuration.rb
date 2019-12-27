@@ -10,6 +10,9 @@ module CertWatch
     # File name of the certbot executable.
     attr_accessor :certbot_executable
 
+    # Flags to send to certbot executable
+    attr_accessor :certbot_flags
+
     # Port for the standalone certbot HTTP server
     attr_accessor :certbot_port
 
@@ -32,6 +35,8 @@ module CertWatch
       @certbot_executable = '/usr/local/share/letsencrypt/bin/certbot'
       @certbot_port = 9999
       @certbot_output_directory = '/etc/letsencrypt/live'
+
+      @certbot_flags = '--agree-tos --renew-by-default --standalone'
 
       @pem_directory = '/etc/haproxy/ssl/'
       @provider_install_directory_mapping = {}

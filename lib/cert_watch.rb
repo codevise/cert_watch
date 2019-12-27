@@ -12,7 +12,9 @@ module CertWatch
 
     self.client = CertbotClient.new(executable: config.certbot_executable,
                                     port: config.certbot_port,
-                                    output_directory: config.certbot_output_directory)
+                                    output_directory: config.certbot_output_directory,
+                                    flags: config.certbot_flags
+                                   )
 
     self.installer =
       PemDirectoryInstaller
